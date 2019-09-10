@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Max Form</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" rel="stylesheet" />
+		<link href="css/style_mpro.css" rel="stylesheet" />  
+		<script src = "https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js" 
+         type = "text/javascript"></script>	
+<style>
+/*-- Roboto Font Family --*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+/*-- Typography --*/
+body{font-family: 'Roboto', sans-serif; font-size: 14px;position: relative; font-weight: normal; line-height: 22px; color: #373737; background: #f9f9f9;font-weight: 300;letter-spacing: 0.2px; min-height: 100vh;}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #373737;
+  font-family: 'Roboto';
+  font-weight: 300;
+    letter-spacing: 0.2px;
+  margin-bottom: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    transition: all ease 0.5s;
+}
+a:hover, a:focus {
+    outline: none;
+    text-decoration: none;
+}
+
+.modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.cstm-error {
+    color: red;
+    font-weight: 400;
+    padding: 10px 0;
+    font-size: 14px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.cstm-form .form-group > label:after, .cstm-form .cstm-sub-ques div > label:after {
+    content: "*";
+    color: red;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 0 0 0 5px;
+}
+
+.cstm-form .form-group > label.not-required:after, .cstm-form .cstm-sub-ques div > label.not-required:after {
+    display: none;
+}
+
+.sent-otp {
+    color: green;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 400;
+    line-height: 20px;
+    /*border-bottom: 1px solid green;*/
+    margin: 0;
+    /*display: inline-block;*/
+    letter-spacing: 0.2px;
+}
+
+/*-- Header --*/
+.logo img {
+    max-width: 90px;
+}
+
+.logo {
+    padding: 15px 0;
+}
+
+header {
+    background: #fff;
+    box-shadow: 0 1px 13px 0 #efefef;
+}
+
+.main-content h1 {
+    font-size: 24px;
+    margin: 0 0 40px;
+    text-align: center;
+}
+
+.main-content {
+    padding: 40px 0 70px;
+}
+
+.main-content h3 {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0 20px;
+}
+
+.cstm-form label {
+    font-weight: 300;
+    display: block;
+    padding: 0 15px;
+    width: 100%;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+.radio-btn li {
+
+opacity:0.7;
+}
+
+.radio-btn li.active,
+
+.radio-btn li:hover {
+
+opacity:1;
+}
+
+.checkbox-custom {
+    opacity: 0;
+    position: absolute;
+}
+.checkbox-custom, .checkbox-custom-label {
+    cursor: pointer;
+    display: inline-block;
+    margin: 5px 5px 5px 0;
+    vertical-align: middle;
+}
+.checkbox-custom-label {
+    position: relative;
+}
+.checkbox-custom + .checkbox-custom-label::before {
+    transition: all ease 0.5s;
+    top: -1px;
+    position: relative;
+    background: none;
+    background-position: 1px 4px;
+    border: 2px solid #a6a6a6;
+    content: "";
+    display: inline-block;
+    height: 20px;
+    margin-right: 10px;
+    padding: 2px;
+    text-align: center;
+    vertical-align: middle;
+    width: 20px;
+}
+.checkbox-custom:checked + .checkbox-custom-label::before {
+    background: #f47d35 url("../images/right-tick.png") no-repeat scroll 1px 4px;
+    content: " ";
+    border: 2px solid #f47d35;
+}
+.cstm-rad label.checkbox-custom-label::before {
+    left: 0;
+    position: absolute;
+    top: 1px;
+}
+
+.cstm-rad label.checkbox-custom-label {
+    padding-left: 31px;
+}
+
+.cstm-rad label {
+    padding: 0 20px 0 0;
+}
+
+.cstm-rad {
+  display: inline-block;
+  margin: 10px 0 0;
+  min-height: 50px;
+}
+
+/*-- Radio btn styling --*/
+
+[type="radio"]:checked, [type="radio"]:not(:checked) {
+    left: -9999px;
+    position: absolute;
+}
+[type="radio"]:checked + label, [type="radio"]:not(:checked) + label {
+    color: #636363;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 20px;
+    position: relative;
+    padding: 0 25px 0 30px;
+    transition: all 0.5s ease 0s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+}
+
+[type="radio"]:checked + label::before, [type="radio"]:not(:checked) + label::before {}
+[type="radio"]:checked + label::after, [type="radio"]:not(:checked) + label::after {}
+[type="radio"]:not(:checked) + label::after {}
+[type="radio"]:checked + label::after {}
+
+.radio-btn ul{
+  max-height: 40px;
+  padding: 10px 0 40px 0;
+}
+
+.form-group.radio-btn .com-sm-12 {
+    float: none;
+}
+
+.radio-btn li {
+	height: 20px;
+    display: inline-block;
+    margin: 0 0 15px 10px;
+    text-align: center;
+    vertical-align: top;
+    position: relative;
+}
+
+.radio-btn li:first-child {margin: 0;}
+.radio-btn li label img {display: block; max-width: 65px;margin: 35px auto 15px; position:relative; z-index: 99;}
+
+.radio-btn li label {
+    position: relative;
+}
+
+.radio-btn li label:after, .radio-btn li label:after {
+    background: none;
+    content: "";
+    display: block;
+    border: 2px solid #a6a6a6;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    top: 0;
+    transition: all 0.5s ease 0s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    border-radius: 50%;
+}
+
+.radio-btn li.active label:after, .radio-btn li:hover label:after {
+    background: #f47d35 url("../images/right-tick.png") no-repeat scroll 1px 4px;
+    content: " ";
+    border: 2px solid #f47d35;
+}
+.radio-btn .custumRadioNo li{
+	z-index: -1;
+}
+
+.radio-btn .custumRadioNo li:hover label.radioFiveC:after{
+		 background: none;
+	    border: 2px solid #a6a6a6;
+}
+.radio-btn .custumRadioNo li.tobaccoWrap.active:hover label.radioSixC:after{
+	background: #f47d35 url(../images/right-tick.png) no-repeat scroll 1px 4px;
+    border: 2px solid #f47d35;
+}
+.radio-btn .custumRadioNo li.tobaccoWrap:hover{
+	opacity:1 !important;
+}
+.radio-btn .custumRadioNo li:hover{
+	opacity:0.7;
+}
+.radio-btn li .right-tick {
+    display: none;
+    /* max-width: 45px;
+    opacity: 0;
+    position: absolute;
+    transition: all 0.5s ease 0s;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    z-index: 99;
+    left: 3px;
+    top: 7px; */
+}
+
+/* .radio-btn li:hover .right-tick,
+.radio-btn li.active .right-tick {opacity: 1;} */
+
+.radio-btn li.no-margin {margin: 0;}
+
+/*--  Custom Select Box --*/
+.cstm-select-box .nice-select {
+  font-weight: 300;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #868686;
+  border-radius: 0;
+  color: #868686;
+  padding: 0;
+  width: 80%;
+  font-size: 14px;
+  line-height: 42px;
+}
+
+.cstm-select-box label {
+  color: #868686;
+  float: left;
+  font-size: 15px;
+  margin: 0 2px 4px;
+  text-transform: uppercase;
+}
+
+.cstm-select-box .nice-select::after {
+  border-bottom: 1px solid #737373;
+  border-right: 1px solid #737373;
+  height: 10px;
+  margin-top: 0;
+  top: 30%;
+  width: 10px;
+}
+
+.cstm-select-box .nice-select .list {
+  border-radius: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+  margin-top: 5px;
+  min-height: 140px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+.cstm-select-box .nice-select .list li {
+  display: block;
+  margin: 0;
+  padding: 0 10px;
+  line-height: 35px;
+  min-height: 35px;
+    text-align: left;
+}
+
+.cstm-select-box .nice-select .list li:first-child {min-height: 0;}
+
+.cstm-form .form-control {
+    background: none;
+    border: none;
+    height: 40px;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 6px 0;
+    font-size: 15px;
+    border-bottom: 1px solid #737373;
+    color: #868686;
+    width: 80%;
+    
+}
+
+.cstm-form .row.form-group {
+  margin-bottom: 50px;
+}
+
+.sbmt-btn a,
+.sbmt-btn button {
+	transition: all ease 0.5s;
+	-webkit-transition: all ease 0.5s;
+	-ms-transition: all ease 0.5s;
+	-moz-transition: all ease 0.5s;
+	-o-transition: all ease 0.5s;
+    background: #1e4679;
+    border: none;
+    border-radius: 2px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 22px;
+    padding: 6px 20px;
+}
+.sbmt-btn {
+    text-align: center;
+}
+
+footer {
+    padding: 20px 0;
+    position: absolute;
+    bottom: 0;
+}
+
+/*-- OTP Content --*/
+
+.otp-content {
+  max-width: 370px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    -ms-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+    -o-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+     padding: 25px 0;
+}
+
+.modal-dialog {
+  max-width: 390px;
+}
+.top-content {
+    padding:0;
+    text-align: center;
+}
+
+.top-content img {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+
+.top-content p {
+  color: #22477b;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0;
+  padding: 20px 20px 10px;
+  text-align: justify;
+}
+.otp-form {
+    color: #797979;
+    text-align: center;
+}
+.otp-form .col-xs-3 > input {
+    border:  none;
+    text-align: center;
+    border-bottom: 2px solid #c3c3c3;
+    max-width: 50px;
+}
+
+.otp-form .col-xs-3 {
+    display: inline-block;
+    float: none;
+    width: auto;
+}
+.otp-form .form-group {
+    text-align: center;
+}
+.otp-form .form-group > label {
+  display: block;
+  font-size: 15px;
+  font-weight: normal;
+  line-height: 20px;
+  padding: 15px 0;
+}
+.sbmt-sec {
+  padding: 15px 0;
+}
+
+.sbmt-sec > p {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 13px;
+  margin: 0;
+}
+.sbmt-sec a {
+  border-bottom: 1px solid;
+  color: #22477b;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 15px;
+  margin: 5px 0 10px;
+  text-decoration: none;
+}
+
+
+.sbtm-btn {
+  margin: 10px 0 0;
+}
+/*-- New Code --*/
+
+.cstm-sub-ques {
+    display: none;
+}
+
+.cstm-sub-ques.active {
+    display: block;
+}
+
+.cstm-mar {
+  margin: 0 0 20px;
+}
+
+.cstm-form .form-group {
+  margin: 0 0 20px;
+}
+
+.cstm-form .col-sm-12.no-pad > label,
+.cstm-form .col-sm-6.no-pad > label,
+.cstm-div > label {
+    padding: 0;
+}
+
+.cstm-div {
+    display: none;
+}
+
+.cstm-div.active {
+    display: block;
+}
+.otp-form .modify-checkbox{
+	    padding: 0 10px;
+}
+.radio-btn .custumRadioNo li.tobaccoWrap:hover{
+	opacity: 0.7 !important;
+}
+.radio-btn .custumRadioNo li.tobaccoWrap:hover label:after{
+	background: transparent;
+	border: 2px solid #a6a6a6;
+}
+.main-content .textCamera{
+    font-size: 16px;
+    color: #222;
+    padding: 20px;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 0 11px -6px #222;
+    margin:20px 20px 10px;
+    line-height: normal;
+}
+.webcamjs-ios-text{
+  padding-top: 20px;
+  display: inline-block;
+}
+
+.errorStar{
+	position:relative;
+}
+.errorStar:after{
+	content: "*";
+    color: red;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 0 0 0 5px;
+}
+
+
+@media(max-width: 991px) {
+
+    .main-content h1 {
+        font-size: 22px;
+        margin: 0 0 25px;
+    }
+
+    .main-content h3 {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .cstm-form .cstm-rad label {
+        font-size: 12px;
+        line-height: 17px;
+    }
+
+    .cstm-form label {
+        font-size: 15px;
+        line-height: 20px;
+    }
+    
+    .cstm-rad {
+      margin: 0;
+      min-height: 61px;
+    }
+    
+    .cstm-form .form-control {
+      width: 100%;
+    }
+    
+}
+
+@media(max-width: 767px){
+    .cstm-error { 
+    	font-size: 12px;
+    	line-height: 17px;
+    }
+    
+    .cstm-mar {
+	    margin: 0;
+	}
+
+    
+    .cstm-rad {
+        display: block;
+    }
+    
+    .logo {
+      padding: 10px 0;
+    }
+
+    .logo img {
+      max-width: 70px;
+    }
+
+    .main-content {
+      padding: 20px 0 70px; 
+    }
+    
+    .main-content h1 {
+      font-size: 20px;
+      margin: 0 0 20px;
+      text-align: center;
+    }
+
+    .main-content h3 {
+      font-size: 15px;
+      line-height: 22px;
+      margin: 0 0 20px;
+    }
+
+    .cstm-select-box .nice-select {
+      margin: 5px 0 15px;
+      width: 100%;
+    }
+
+    .radio-btn ul {
+      max-height: 40px;
+      padding: 12px 0;
+    }
+
+    .cstm-form .row.form-group {
+      margin-bottom: 10px;
+    }
+
+    .cstm-form .form-control {
+      width: 100%;
+      margin: 0 0 10px;
+    }
+    
+    .cstm-rad.rad-five {
+      margin: 10px 0;
+    }
+
+    /* .sbmt-btn button {
+      border-radius: 0;
+      left: 0;
+      padding: 10px 0;
+      position: absolute;
+      width: 100%;
+    } */
+
+    .top-content {
+     text-align: center;
+    }
+
+    .top-content p {
+      font-size: 13px;
+      line-height: 19px;
+      padding: 15px 10px;
+    }
+
+    .otp-form .form-group > label {
+      font-size: 13px;
+      line-height: 15px;
+      padding: 15px 0;
+
+    }
+
+    .otp-form .col-xs-3 {
+      padding: 0 10px;
+    }
+
+    .sbmt-sec {
+      padding: 0px 0 10px;
+    }
+
+    .modal-dialog {
+      max-width: 69%; 
+    }
+    
+    .sbmt-sec a {
+      font-size: 13px;
+      line-height: 17px;
+    }
+
+    .sbmt-sec > p {
+      font-size: 13px;
+      line-height: 17px;
+    }
+
+    .modal-body {
+      padding: 15px 5px;
+      position: relative;
+    }
+    
+    .otp-form .col-xs-3 > input {
+      max-width: 40px;
+    }
+    
+    .cstm-rad {
+	    margin: 12px 0;
+	    min-height: auto;
+	}
+	
+	.cstm-rad label.checkbox-custom-label {
+	    padding-left: 25px;
+	}
+	
+	/* .checkbox-custom + .checkbox-custom-label::before {
+		width: 15px;
+		height: 15px;
+	} */
+	    
+}
+
+@media(max-width: 479px) {
+    .cstm-form label {
+      padding: 0;
+      font-size: 13px;
+      line-height: 17px;
+    }
+    
+    .main-content h1 {
+      font-size: 18px;
+      margin: 0 0 15px;
+      text-align: center;
+    }
+
+    .main-content h3 {
+      font-size: 13px;
+      line-height: 17px;
+      margin: 0 0 14px;
+    }
+    
+    .modal-dialog {
+      max-width: 90%; 
+    }
+}
+
+</style>		 
+    </head>
+    <body>
+   
+	    
+    
+        <header>
+            <div class="container-fluid">
+                <div class="logo"><a href="#"><img src="images/logo.png" alt="MAX_Life"/></a></div>
+            </div>
+        </header>
+        <section class="main-content">
+            <div class="container">
+                <label for="totalQstns" data-bind="text: totalQuestions">Total Questions: 10</label>
+                <label for="attemptedQstns" class="pull-right" data-bind="text: attemptedQuestions">Attempted Questions: 3</label>
+                <h1>Product Related Questions  CustomerBenefitName </h1>
+                <div id="product_1" class="cstm-form" action="product-1" method="post" name="mainForm" id="mainForm">
+                    <!-- Ques 1 -->
+                    <div class="form-group radio-btn clearfix">
+                       <label data-bind = "text: question">Product Question number one ?</label>
+                        <div class="col-sm-12">
+                            <ul class="radio-one">
+                                <li id="yes">
+                                    <img class="right-tick" src="images/right-tick.png" alt="radio-select"> 
+                                    <input type="radio" name="A_PROD" onClick="onClickRadioButton()" value="Y" id="radio-one" >
+                                    <label for="radio-one">Yes</label>
+                                </li>
+                                <li id="no">
+                                    <img class="right-tick" src="images/right-tick.png" alt="radio-select"> 
+                                    <input type="radio" name="A_PROD" onClick="onClickRadioButton()" value="N" id="radio-two">
+                                    <label for="radio-two">No</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="sbmt-btn" >
+                    	<div class="cstm-error" id="show_msg"></div>
+                       	<button class="btn btn-primary" type="button" id="prevButton" data-bind="visible: prevBtnVisibility">Prev</button>
+                        <button class="btn btn-primary" type="button" id="nextButton" >Next</button>
+                    </div>
+                    
+					
+					
+					
+                    <!--Added By Rohit Starts--> 
+                    <!-- <input type="hidden" name="isPrev" id="isPrev" value="false"/>
+                    <input type="hidden"  id="currentAnswer"  value="${currentMProBuyerDetailsDTO.ANSWER}"/>
+                    <input type="hidden"  id="QuestionSeq"  value="${question_pos}"/>
+                    <input type="hidden" name="platform"  id="platform"  value="">
+                    <input type="hidden" name="userAgent" id="userAgent"  value=""> -->
+                    <!-- ADDED ON 7-March-2019 -->
+                    <!-- <input type="hidden" name="errorCode" id="errorCode" value="${error.errorCode}">
+                    <input type="hidden" name="errorcount" id="errorcount" value="${error.errorcount}"> -->
+                    <!-- ADDED ON 7-March-2019 -->
+                    <!--Added By Rohit Ends-->
+                    <!-- Added By RK01318 for Axis Policy Starts -->
+                    <!-- <input type="hidden" name="transactionCount" id="transactionCount" value="${transactionCount}">
+                    <input type="hidden" name="axispolicyOrNot" id="axispolicyOrNot" value="${axispolicyOrNot}"> -->
+                    <!-- Added By RK01318 for Axis Policy Ends   --> 
+                </div>
+                <!--Added By Amit Starts-->
+                <div action="product-1" class="custom-form" method="POST" name="prevForm" id="prevForm">
+                <input type="hidden" name="isPrev" id="isPrev" value="true"/>
+                </div>
+    			<!--Added By Amit Ends-->
+            </div>
+        </section>
+        
+        <footer>
+            <div class="container-fluid"><img src="images/bottom-footer.jpg" alt="Max-life"/></div>
+        </footer>
+        
+          
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+        
+        <script>
+			
+           /* $(document).ready(function() {  
+              
+        	   //Added BY RK01318 7-FEB-2019 Starts 
+        	   if($('#errorcount').val()>1)
+	            {
+	           	alert("Dear customer. we are experiencing slowness in our system, please retry after sometime or contact your seller.");
+	            }
+	           else if($('#errorCode').val()=='500')
+	            {
+	           	alert("Dear Customer, we are experiencing slowness in our system, please retry submitting your response now.");
+	            }
+               //Added By RK01318 7-FEB-2019 Ends
+        	 
+            $(".radio-btn li").click(function() {
+                $(this).addClass('active');
+                $('.radio-btn li').on('click', function() {
+                    $(this).addClass('active').siblings().removeClass('active');
+                });
+            });
+            
+            //Added By RK01318 Starts
+            var platform=navigator.platform;
+            var userAgent=navigator.userAgent;
+            $('#platform').val(platform);
+            $('#userAgent').val(userAgent);
+            //Added By RK01318 Ends
+            
+            var currentanswer=$("#currentAnswer").val();
+            if("Y"==currentanswer)
+            {
+            	$("#radio-one").click();
+            }
+            else if("N"==currentanswer)
+            {
+            	$("#radio-two").click();
+            }
+            
+            var questionSeq=$("#QuestionSeq").val();
+            //Added BY @RK01318 for Axis Policy
+          //Added BY @RK01318 for Axis Policy
+            if($('#axispolicyOrNot').val()=="true")
+            {
+	            if("0"==questionSeq  &&  $('#transactionCount').val()=="1")
+	            {
+	            	$("#prevButton").hide();
+	            }
+            }
+            else
+            {
+            	if("0"==questionSeq )
+	            {
+	            	$("#prevButton").hide();
+	            }
+            }
+            
+            
+            
+          
+            
+          });
+          
+          function onClickRadioButton(){
+        	  $("#show_msg").html(" ");
+          }
+          
+          function validateForm() {
+        	    var radios = document.getElementsByName("A_PROD");
+        	    var formValid = false;
+        	    var i = 0;
+        	    while (!formValid && i < radios.length) {
+        	        if (radios[i].checked) formValid = true;
+        	        i++;        
+        	    }
+        	    
+        	    if (!formValid){
+        	    	 $("#show_msg").html("Pls answer all the mandatory questions (marked with *)");        	    	
+        	    }
+        	    return formValid;
+        	}
+          
+          function prevPage()
+          {
+      		document.prevForm.submit();
+          }
+          
+          function validate()
+          {
+          	var isValidated = validateForm();
+          	if(isValidated){
+          		$("#nextButton").attr("disabled", true);
+          		document.mainForm.submit();
+     		}
+          	else{
+     		 	$("#show_msg").html("Pls answer all the mandatory questions (marked with *)");
+     		 }
+          } */
+		  
+		   $(document).ready(function() {  
+              
+             $(".radio-btn li").click(function() {
+                $(this).addClass('active');
+                $('.radio-btn li').on('click', function() {
+                    $(this).addClass('active').siblings().removeClass('active');
+                });
+            });
+          }); 
+		  
+		  
+		   $("#nextButton").click(function(){
+			if(validate()){
+				
+				// remove active classes.
+				 removeRadios();
+			
+				viewModel.counter = viewModel.counter+1;
+				if(viewModel.counter!=0){
+					viewModel.prevBtnVisibility(true);
+				}else{
+					viewModel.prevBtnVisibility(false);
+				}
+				 
+			
+				 callLambdaProductSave();
+				 //iterate next question.
+				 setQuestionAndAns();
+			
+			
+			
+			}
+		  })
+		  
+		  $("#prevButton").click(function(){
+			viewModel.counter = viewModel.counter-1;
+			if(viewModel.counter==0){
+				viewModel.prevBtnVisibility(false);
+			}
+			setQuestionAndAns();
+		  })
+		  
+		  function removeRadios(){
+				var radioYes = document.getElementById("yes");
+				var radioNo = document.getElementById("no");
+				radioYes.classList.remove("active");
+				radioNo.classList.remove("active");
+				document.getElementById('radio-one').checked = false;
+				document.getElementById('radio-two').checked = false;
+		  }
+		  
+		  function callLambdaProductSave(){
+			if(viewModel.productList[viewModel.counter]){
+				viewModel.question(viewModel.productList[viewModel.counter].questionName);
+			}else{
+				alert('submit answers.');
+			}
+		  }
+		  
+		  function setQuestionAndAns(){
+			if(viewModel.productList[viewModel.counter]){
+				viewModel.question(viewModel.productList[viewModel.counter].questionName);
+			}else{
+				alert('submit answers.');
+			}
+		  }
+		  
+		  function onClickRadioButton(){
+        	  $("#show_msg").html(" ");
+          }
+		  
+		 function getProductQuestions(){
+			var productJson = '[ { "questionId": "PROD1", "questionName": "Question 1?", "response": "Y" }, { "questionId": "PROD2", "questionName": "Question 2?", "response": "N" }, { "questionId": "PROD3", "questionName": "Question 3?", "response": "Y" }, { "questionId": "PROD4", "questionName": "Question 4?", "response": "N" } ]';
+			return JSON.parse(productJson);
+		 }
+		  
+		 function validate() {
+        	    var radios = document.getElementsByName("A_PROD");
+        	    var formValid = false;
+        	    var i = 0;
+        	    while (!formValid && i < radios.length) {
+        	        if (radios[i].checked) formValid = true;
+        	        i++;        
+        	    }
+        	    
+        	    if (!formValid){
+        	    	 $("#show_msg").html("Pls answer all the mandatory questions (marked with *)");        	    	
+        	    }else{
+					$("#show_msg").html(""); 
+				}
+        	    return formValid;
+        	}
+			
+		 function AppViewModel() {
+			this.productList = getProductQuestions();
+			if(this.productList[0]){
+				this.question = ko.observable(this.productList[0].questionName);
+			}
+			this.counter = 0;
+			this.prevBtnVisibility =  ko.observable(false);
+			this.attemptedQuestions = ko.observable('Attempted Questions:'+(this.counter+1));
+			this.totalQuestions = ko.observable('Total Questions: '+this.productList.length);
+         }
+		 
+		 var viewModel = new AppViewModel();
+         ko.applyBindings(viewModel);
+        </script>
+    </body>
+</html>
